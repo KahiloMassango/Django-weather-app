@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Weather APP</title>
+</head>
+
+<body>
+    <header class="header">
+        <h1>How's the weather?</h1>
+    </header>
+    <div class="main-container">
+        <div class="main-content">
+            <form action="{% url 'weather:get_city' %}" method="POST" class="form">
+                {%csrf_token%}
+                <input type="text" name="city" placeholder="City Name">
+                <button type="submit">Add City</button>
+            </form>
+            <div class="flex-items">
+                {% for city in weather_data %} 
+                    <div class="weather-container">
+                        <div class="img {{ city.weather_icon }}"></div>
+                        <div class="weather-details flex-column">
+                            <p class="city-name">{{ city.city }}</p>
+                            <p class="temperature">{{ city.temp }}° C</p>
+                            <P class="weather-conditions">{{ city.description }}</P>
+                        </div>
+                        <a href="{% url 'weather:delete' city.id %}" class="icon"><ion-icon name="trash"></ion-icon></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <footer class="footer"></footer>
+</body>
+
+</html>
