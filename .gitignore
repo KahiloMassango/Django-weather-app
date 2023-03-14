@@ -6,6 +6,8 @@ __pycache__
 db.sqlite3
 media
 
+api_creds.txt
+
 # Backup files #
 *.bak
 
